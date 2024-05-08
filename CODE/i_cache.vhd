@@ -3,16 +3,15 @@ use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
 
 entity i_cache is
-port( address: in std_logic_vector(4 downto 0);
+port( address    : in std_logic_vector(4 downto 0);
       instruction: out std_logic_vector(31 downto 0));
 end i_cache;
-
 
 architecture i_arch of i_cache is
 
 begin
 	process(address)
-	begin
+	begin --Machine code in MIPS Architecture (R-Type, I-Type and J-Type)
 		case address is
 		      when "00000"  => instruction <= "00100000000000110000000000000000"; -- addi r3, r0, 0
 		      when "00001"  => instruction <= "00100000000000010000000000000000"; -- addi r1, r0, 0
@@ -28,7 +27,6 @@ begin
 		      when "01011"  => instruction <= "00111000100001000000000000001011"; -- xori r4,r4, 0xB
 		      when "01100"  => instruction <= "00111000100001000000000000000000"; -- xori r4,r4, 0x0000
 		      when  others  => instruction <= "00000000000000000000000000000000"; -- dont care
-
 		end case;
 	end process;
 end i_arch;
